@@ -73,15 +73,15 @@ jobs:
 
       - name: Grant execute permissions to scripts
         run: |
-          chmod +x ./runner.sh
-          chmod +x ./argocd.sh
+          chmod +x ./Setup-infra/runner.sh
+          chmod +x ./Setup-infra/argocd.sh
 
       - name: Run first script
         run: |
-          ./runner.sh
+          ./Setup-infra/runner.sh
           echo "Running the first script!"
 
       - name: Run second script
         run: |
-          ./argocd.sh
+          ./Setup-infra/argocd.sh
           echo "Running the second script!"
