@@ -1,16 +1,16 @@
 name: IAC
 
 on:
-    push:
-      branches: 
-        - main
-      paths: 
-        - Setup-infra/**
-    pull_request:
-      branches: 
-        - master
-      paths: 
-        - Setup-infra/**
+  push:
+    branches: 
+      - main
+    paths: 
+      - Setup-infra/**
+  pull_request:
+    branches: 
+      - main
+    paths: 
+      - Setup-infra/**
 env:
     # credentials for deployment to AWS
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -26,7 +26,7 @@ jobs:
         defaults:
             run:
                 shell: bash
-                working-directory: ./Setup-infra/**
+                working-directory: ./Setup-infra
         steps:
         - name: Checkout source code 
           uses: actions/checkout@v4
@@ -56,9 +56,7 @@ jobs:
           if: steps.plan.outcome == 'failure'
           run: exit 1
 
-        - name: Terraform Apply
-          id: apply
-          if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-          run: terraform apply -auto-approve -input=false -parallelism=1 planfile
-
-      
+        # - name: Terraform Apply
+        #   id: apply
+        #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        #   run: terraform apply -auto-approve -input=false -parallelism=1 planfile
