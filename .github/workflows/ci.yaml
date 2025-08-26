@@ -1,16 +1,16 @@
-name:  IAC
+name: IAC
 
 on:
-    push:
-      branches: 
-        - main
-      paths: 
-        - self_hosted_runner/**
-    pull_request:
-      branches: 
-        - main
-      paths: 
-        - self_hosted_runner/**
+  push:
+    branches: 
+      - main
+    paths: 
+      - self_hosted_runner/**
+  pull_request:
+    branches: 
+      - main
+    paths: 
+      - self_hosted_runner/**
 env:
     # credentials for deployment to AWS
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
