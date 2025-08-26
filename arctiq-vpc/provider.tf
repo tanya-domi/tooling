@@ -11,7 +11,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "berlin32-dev-40" 	
+    bucket = "berlin32-dev-49" 	 
     key    = "vpc/terraform.tfstate"
     region = "eu-north-1"
 }
