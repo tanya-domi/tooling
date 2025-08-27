@@ -1,5 +1,5 @@
 resource "aws_vpc" "arctiqvpc" {
-  cidr_block       = var.cidr-block
+  cidr_block       = var.cidr_block
   instance_tenancy = "default"
 
   enable_dns_hostnames = true
@@ -54,7 +54,7 @@ resource "aws_subnet" "prodpublic" {
   tags = {
     Name = var.public_subnet_names[count.index]
     "kubernetes.io/role/elb" = "1"
-    "kubernetes.io/cluster/demo" = "owned"
+    "kubernetes.io/cluster/eks-cloud" = "owned"
   }
 }
 
@@ -68,13 +68,14 @@ resource "aws_subnet" "private_subnets" {
 
   tags = {
     Name = var.private_subnet_names[count.index]
-    "kubernetes.io/role/elb" = "1"
-    "kubernetes.io/cluster/demo" = "owned"
+    "kubernetes.io/role/internal-elb" = "1"
+    "kubernetes.io/cluster/eks-cloud" = "owned"
   }
 }
 
 resource "aws_eip" "arctiq_eip" {
-  
+  vpc = true
+
 }
 
 resource "aws_nat_gateway" "arctiq_natgw" {

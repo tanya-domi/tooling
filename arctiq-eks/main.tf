@@ -44,7 +44,7 @@ resource "aws_eks_cluster" "example" {
     endpoint_public_access  = true
 
     subnet_ids = [
-      "subnet-09a7e98099e7dbac9",
+      "subnet-09a7e98099e7dbac9",  
       "subnet-026f7b94a0623a659"
     ]
   }

@@ -26,7 +26,7 @@ variable "public_subnet_names" {
   default = [ "Public_subnet_1", "Public_subnet_2" ]
 }
 
-variable "cidr-block" {
+variable "cidr_block" {
   type = string
   default = "10.32.0.0/16"
 }

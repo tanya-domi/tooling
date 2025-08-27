@@ -76,5 +76,3 @@ resource "aws_instance" "arctiq_instance" {
     volume_size = 30
   }
 }
-
-##
