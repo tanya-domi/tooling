@@ -8,5 +8,5 @@ tar xzf ./actions-runner-linux-x64-2.328.0.tar.gz
 
 Configure
 # Create the runner and start the configuration experience
-./config.sh --url https://github.com/tanya-domi/tooling --token BKLK7CM72WYTDEPGI7D4EOTIVWOYI
+./config.sh --url https://github.com/tanya-domi/tooling --token BKLK7CKEKYH5UACSX6NH7HLIV6HKI
 ./run.sh
