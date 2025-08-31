@@ -34,11 +34,11 @@ jobs:
       - name: Terraform format
         run: terraform fmt -check
 
-      - name: init
-        run: |
-          eval `ssh-agent -s`
-          ssh-add - <<< '${{ secrets.SSH_KEY_GITHUB_ACTIONS }}'
-          terraform init
+      # - name: init
+      #   run: |
+      #     eval `ssh-agent -s`
+      #     ssh-add - <<< '${{ secrets.SSH_KEY_GITHUB_ACTIONS }}'
+      #     terraform init
 
       - name: Terraform Format
         id: fmt
