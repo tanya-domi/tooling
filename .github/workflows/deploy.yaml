@@ -28,11 +28,15 @@ jobs:
           role-to-assume: ${{ secrets.CI_ROLE }}
           aws-region: ${{ inputs.aws-region }}
 
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
+      - name: Checkout source code 
+        uses: actions/checkout@v4
 
-      - name: Terraform format
-        run: terraform fmt -check
+      - name: Setup Terraform with specified version on the runner
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend-config "bucket=$BUCKET_TF_STATE"
 
       # - name: init
       #   run: |
@@ -40,10 +44,11 @@ jobs:
       #     ssh-add - <<< '${{ secrets.SSH_KEY_GITHUB_ACTIONS }}'
       #     terraform init
 
-      - name: Terraform Format
+      - name: Terraform format
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
+
 
       - name: Terraform Validate
         id: validate
