@@ -29,11 +29,11 @@ jobs:
 
       - name: Grant execute permissions to scripts
         run: |
-          chmod +x ./Setup-Argocd/runner.sh
-          chmod +x ./Setup-Argocd/argocd.sh
+          chmod +x ./runner.sh
+          chmod +x ./argocd.sh
 
       - name: Run first script
-        run: ./Setup-Argocd/runner.sh
+        run: ./runner.sh
 
       - name: Run second script
-        run: ./Setup-Argocd/argocd.sh
+        run: ./argocd.sh
