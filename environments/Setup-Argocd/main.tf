@@ -1,5 +1,5 @@
 resource "aws_iam_role" "arctiq_role" {
-  name = "arctiq-terraform"
+  name               = "arctiq-terraform"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -98,7 +98,7 @@ resource "aws_instance" "arctiq_instance" {
   tags = {
     Name = "github_runner"
   }
- associate_public_ip_address = true
+  associate_public_ip_address = true
 
   root_block_device {
     volume_size = 30

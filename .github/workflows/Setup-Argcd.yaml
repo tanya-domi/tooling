@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  call-Argocd-runner-workflow:
+  call-Argocd-workflow:
     uses: ./.github/workflows/deploy.yaml
     with:
       work-dir: "environments/Setup-Argocd"
@@ -21,7 +21,7 @@ jobs:
       # SSH_KEY_GITHUB_ACTIONS: ${{ secrets.SSH_KEY_GITHUB_ACTIONS }}
 
   deploy-scripts:
-    needs: call-Argocd-runner-workflow
+    needs: call-Argocd-workflow
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
