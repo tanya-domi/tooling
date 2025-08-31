@@ -1,21 +1,39 @@
 name: Argocd Deploy
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
 permissions:
-    id-token: write
-    pull-requests: write
-    statuses: write
-    actions: read
-    contents: read
+  id-token: write
+  pull-requests: write
+  statuses: write
+  actions: read
+  contents: read
 
 jobs:
-    call-vpc-workflow:
-        uses: ./.github/workflows/deploy.yaml
-        with:
-            work-dir: "environments/Setup-Argocd"
-            aws-region: "eu-north-1"
-        secrets:
-            CI_ROLE: ${{ secrets.CI_ROLE }}
-            # SSH_KEY_GITHUB_ACTIONS: ${{ secrets.SSH_KEY_GITHUB_ACTIONS }}
+  call-vpc-workflow:
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      work-dir: "environments/Setup-Argocd"
+      aws-region: "eu-north-1"
+    secrets:
+      CI_ROLE: ${{ secrets.CI_ROLE }}
+      # SSH_KEY_GITHUB_ACTIONS: ${{ secrets.SSH_KEY_GITHUB_ACTIONS }}
+
+  deploy-scripts:
+    needs: call-vpc-workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Grant execute permissions to scripts
+        run: |
+          chmod +x ./Setup-infra/runner.sh
+          chmod +x ./Setup-infra/argocd.sh
+
+      - name: Run first script
+        run: ./Setup-infra/runner.sh
+
+      - name: Run second script
+        run: ./Setup-infra/argocd.sh

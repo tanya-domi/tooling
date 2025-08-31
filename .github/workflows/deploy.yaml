@@ -70,20 +70,21 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false -parallelism=1 planfile
 
-  deploy-scripts:
-    needs: Infra-deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  # deploy-scripts:
+  #   needs: Infra-deploy
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Grant execute permissions to scripts
-        run: |
-          chmod +x ./Setup-infra/runner.sh
-          chmod +x ./Setup-infra/argocd.sh
+  #     - name: Grant execute permissions to scripts
+  #       run: |
+  #         chmod +x ./Setup-infra/runner.sh
+  #         chmod +x ./Setup-infra/argocd.sh
 
-      - name: Run first script
-        run: ./Setup-infra/runner.sh
+  #     - name: Run first script
+  #       run: ./Setup-infra/runner.sh
 
-      - name: Run second script
-        run: ./Setup-infra/argocd.sh
+  #     - name: Run second script
+  #       run: ./Setup-infra/argocd.sh
+    
