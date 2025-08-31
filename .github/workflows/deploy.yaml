@@ -4,9 +4,8 @@ on:
   workflow_call:
     inputs:
       work-dir:
-        inputs:
-          required: true
-          type: string
+        required: true
+        type: string
       aws-region:
         required: true
         type: string
@@ -24,15 +23,17 @@ jobs:
         working-directory: ${{ inputs.work-dir }}
     steps:
       - name: AWS Creds
-        Uses: aws-actions/configure-aws-credentails@v1
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           role-to-assume: ${{ secrets.CI_ROLE }}
           aws-region: ${{ inputs.aws-region }}
 
-      - uses: actions/Checkout@v3
-      - uses: hashicorpe/setup-terraform@v1
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v1
+
       - name: Terraform format
         run: terraform fmt -check
+
       - name: init
         run: |
           eval `ssh-agent -s`
@@ -70,11 +71,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Grant execute permissions to scripts
         run: |
           chmod +x ./Setup-infra/runner.sh
           chmod +x ./Setup-infra/argocd.sh
+
       - name: Run first script
         run: ./Setup-infra/runner.sh
+
       - name: Run second script
         run: ./Setup-infra/argocd.sh
