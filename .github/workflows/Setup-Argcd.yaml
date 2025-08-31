@@ -29,8 +29,8 @@ jobs:
 
       - name: Grant execute permissions to scripts
         run: |
-          chmod +x ./runner.sh
-          chmod +x ./argocd.sh
+          chmod +x runner.sh
+          chmod +x argocd.sh
 
       - name: Run first script
         run: ./runner.sh
