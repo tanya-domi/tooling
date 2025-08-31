@@ -12,8 +12,8 @@ on:
     secrets:
       CI_ROLE:
         required: true
-      SSH_KEY_GITHUB_ACTIONS:
-        required: true
+      # SSH_KEY_GITHUB_ACTIONS:
+      #   required: true
 
 jobs:
   Infra-deploy:
