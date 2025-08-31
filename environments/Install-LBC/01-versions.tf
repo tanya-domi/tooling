@@ -26,7 +26,7 @@ terraform {
   }
   # Adding Backend as S3 for Remote State Storage
   backend "s3" {
-    bucket = "berlin32-dev-27"   
+    bucket = "berlin32-dev-5"   
     key    = "Dev/aws-lbc/terraform.tfstate"
     region = "eu-north-1"
 
