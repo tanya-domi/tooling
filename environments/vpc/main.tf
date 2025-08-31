@@ -55,8 +55,8 @@ resource "aws_subnet" "prodpublic" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name                              = var.public_subnet_names[count.index]
-    "kubernetes.io/role/elb"          = "1"
+    Name                                              = var.public_subnet_names[count.index]
+    "kubernetes.io/role/elb"                          = "1"
     "kubernetes.io/cluster/${local.eks_cluster_name}" = "owned"
   }
 }
@@ -70,9 +70,9 @@ resource "aws_subnet" "private_subnets" {
   map_public_ip_on_launch = false
 
   tags = {
-    Name                              = var.private_subnet_names[count.index]
-    "kubernetes.io/role/internal-elb" = "1"
-    "kubernetes.io/cluster/local.eks_cluster_name" = "owned" 
+    Name                                           = var.private_subnet_names[count.index]
+    "kubernetes.io/role/internal-elb"              = "1"
+    "kubernetes.io/cluster/local.eks_cluster_name" = "owned"
   }
 }
 
