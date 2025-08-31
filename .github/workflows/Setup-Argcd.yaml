@@ -32,9 +32,19 @@ jobs:
           chmod +x environments/Setup-Argocd/runner.sh
           chmod +x environments/Setup-Argocd/argocd.sh
 
-      - name: Run scripts
+    #   - name: Run scripts
+    #     run: |
+    #        environments/Setup-Argocd/runner.sh
+    #        environments/Setup-Argocd/argocd.sh
+
+      - name: Run first script
         run: |
-           environments/Setup-Argocd/runner.sh
-           environments/Setup-Argocd/argocd.sh
+          environments/Setup-Argocd/runner.sh
+          echo "Running the first script!"
+
+      - name: Run second script
+        run: |
+          environments/Setup-Argocd/argocd.sh
+          echo "Running the second script!"
 
       
