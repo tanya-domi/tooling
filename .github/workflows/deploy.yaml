@@ -23,13 +23,13 @@ jobs:
         working-directory: ${{ inputs.work-dir }}
     steps:
       - name: AWS Creds
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.CI_ROLE }}
           aws-region: ${{ inputs.aws-region }}
 
       - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v1
+      - uses: hashicorp/setup-terraform@v2
 
       - name: Terraform format
         run: terraform fmt -check
