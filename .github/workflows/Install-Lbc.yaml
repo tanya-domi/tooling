@@ -11,7 +11,7 @@ permissions:
     contents: read
 
 jobs:
-    call-eks-workflow:
+    call-eks-lbc-workflow:
         uses: ./.github/workflows/deploy.yaml
         with:
             work-dir: "environments/Install-LBC"

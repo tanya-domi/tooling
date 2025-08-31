@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-  call-vpc-workflow:
+  call-Argocd-runner-workflow:
     uses: ./.github/workflows/deploy.yaml
     with:
       work-dir: "environments/Setup-Argocd"
@@ -21,7 +21,7 @@ jobs:
       # SSH_KEY_GITHUB_ACTIONS: ${{ secrets.SSH_KEY_GITHUB_ACTIONS }}
 
   deploy-scripts:
-    needs: call-vpc-workflow
+    needs: call-Argocd-runner-workflow
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,11 +29,11 @@ jobs:
 
       - name: Grant execute permissions to scripts
         run: |
-          chmod +x ./Setup-infra/runner.sh
-          chmod +x ./Setup-infra/argocd.sh
+          chmod +x ./Setup-Argocd/runner.sh
+          chmod +x ./Setup-Argocd/argocd.sh
 
       - name: Run first script
-        run: ./Setup-infra/runner.sh
+        run: ./Setup-Argocd/runner.sh
 
       - name: Run second script
-        run: ./Setup-infra/argocd.sh
+        run: ./Setup-Argocd/argocd.sh
