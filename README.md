@@ -6,6 +6,8 @@ This repository contains infrastructure components including S3, VPC, EKS, Load 
 This repository automates the end-to-end setup of our cloud infrastructure and deployment pipeline using GitHub Actions, AWS, and ArgoCD.
 The workflow provisions and configures all required components to enable seamless CI/CD for our applications infrastructure.
 
+![Image](https://github.com/user-attachments/assets/0184c957-d458-4771-a164-2c4f23de72a0)
+
 # Key Components:
 1. GitHub and AWS Integration via OIDC
 - Secure authentication between GitHub Actions and AWS using OpenID Connect (OIDC).
