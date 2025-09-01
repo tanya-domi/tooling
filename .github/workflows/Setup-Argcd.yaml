@@ -1,7 +1,11 @@
+
 name: Argocd Deploy
 
 on:
   workflow_dispatch:
+
+env:
+  AWS_REGION: eu-north-1   
 
 permissions:
   id-token: write
@@ -15,10 +19,9 @@ jobs:
     uses: ./.github/workflows/deploy.yaml
     with:
       work-dir: "environments/Setup-Argocd"
-      aws-region: "eu-north-1"
+      aws-region: ${{ env.AWS_REGION }}
     secrets:
       CI_ROLE: ${{ secrets.CI_ROLE }}
-      # SSH_KEY_GITHUB_ACTIONS: ${{ secrets.SSH_KEY_GITHUB_ACTIONS }}
 
   deploy-scripts:
     needs: call-Argocd-workflow
@@ -28,7 +31,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.CI_ROLE }}
-          aws-region: ${{ inputs.aws-region }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -45,7 +48,7 @@ jobs:
 
       - name: Update kubeconfig
         run: |
-          aws eks --region eu-north-1 update-kubeconfig --name hr-dev-eks-cloud
+          aws eks --region $AWS_REGION update-kubeconfig --name hr-dev-eks-cloud
 
       - name: Verify access
         run: kubectl get nodes
@@ -54,4 +57,65 @@ jobs:
         run: |
           environments/Setup-Argocd/argocd.sh
           echo "Running the second script!"
+
+
+
+
+
+# name: Argocd Deploy
+
+# on:
+#   workflow_dispatch:
+
+# permissions:
+#   id-token: write
+#   pull-requests: write
+#   statuses: write
+#   actions: read
+#   contents: read
+
+# jobs:
+#   call-Argocd-workflow:
+#     uses: ./.github/workflows/deploy.yaml
+#     with:
+#       work-dir: "environments/Setup-Argocd"
+#       aws-region: "eu-north-1"
+#     secrets:
+#       CI_ROLE: ${{ secrets.CI_ROLE }}
+#       # SSH_KEY_GITHUB_ACTIONS: ${{ secrets.SSH_KEY_GITHUB_ACTIONS }}
+
+#   deploy-scripts:
+#     needs: call-Argocd-workflow
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: AWS Creds
+#         uses: aws-actions/configure-aws-credentials@v2
+#         with:
+#           role-to-assume: ${{ secrets.CI_ROLE }}
+#           aws-region: ${{ inputs.aws-region }}
+
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+
+#       - name: Grant execute permissions to scripts
+#         run: |
+#           chmod +x environments/Setup-Argocd/runner.sh
+#           chmod +x environments/Setup-Argocd/argocd.sh
+
+#       - name: Run first script
+#         run: |
+#           environments/Setup-Argocd/runner.sh
+#           echo "Running the first script!"
+
+#       - name: Update kubeconfig
+#         run: |
+#           aws eks --region eu-north-1 update-kubeconfig --name hr-dev-eks-cloud
+
+#       - name: Verify access
+#         run: kubectl get nodes
+
+#       - name: Install ArgoCD
+#         run: |
+#           environments/Setup-Argocd/argocd.sh
+#           echo "Running the second script!"
          
