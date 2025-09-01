@@ -1,0 +1,22 @@
+name: cluster-autoscaler Deploy
+
+on:
+    workflow_dispatch:
+
+permissions:
+    id-token: write
+    pull-requests: write
+    statuses: write
+    actions: read
+    contents: read
+
+jobs:
+    call-cluster-autoscaler-workflow:
+        uses: ./.github/workflows/deploy.yaml
+        with:
+            work-dir: "environments/cluster-autoscaler"
+            aws-region: "eu-north-1"
+        secrets:
+            CI_ROLE: ${{ secrets.CI_ROLE }}
+
+            
