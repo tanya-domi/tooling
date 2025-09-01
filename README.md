@@ -25,6 +25,7 @@ The workflow provisions and configures all required components to enable seamles
 - IAM Roles for Service Accounts (IRSA) for secure pod-level AWS permissions.
 - Cluster Autoscaler for dynamic scaling of worker nodes based on demand.
 - Ensures reliability, scalability, and security for running containerized workloads.
+![Image](https://github.com/user-attachments/assets/221fb204-712d-4a03-9c29-731e13dfb7f7)
 
 4. Automated ArgoCD Configuration
 - ArgoCD is installed and configured automatically as part of the infrastructure provisioning.
