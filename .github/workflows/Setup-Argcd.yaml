@@ -1,10 +1,8 @@
+
 name: Argocd Deploy
 
 on:
   workflow_dispatch:
-
-env:
-  AWS_REGION: eu-north-1   
 
 permissions:
   id-token: write
@@ -27,11 +25,12 @@ jobs:
     needs: call-Argocd-workflow
     runs-on: ubuntu-latest
     steps:
-      - name: AWS Creds
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: ${{ secrets.CI_ROLE }}
-          aws-region: ${{ inputs.aws-region }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -53,8 +52,9 @@ jobs:
       - name: Verify access
         run: kubectl get nodes
 
-      - name: Install ArgoCD
+      - name: Run Second Script and Install ArgoCD
         run: |
           environments/Setup-Argocd/argocd.sh
           echo "Running the second script!"
          
+###
