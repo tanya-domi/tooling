@@ -2,8 +2,8 @@
 data "terraform_remote_state" "eks" {
   backend = "s3"
   config = {
-    bucket = "berlin32-dev-5"
-    key    = "Dev/eks/terraform.tfstate" 
+    bucket = "berlin32-dev-45"
+    key    = "Dev/eks/terraform.tfstate"
     region = "eu-north-1"
   }
 }
