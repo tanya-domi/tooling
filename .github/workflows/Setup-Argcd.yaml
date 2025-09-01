@@ -42,9 +42,15 @@ jobs:
           environments/Setup-Argocd/runner.sh
           echo "Running the first script!"
 
-      - name: Run second script
+      - name: Update kubeconfig
+        run: |
+          aws eks --region eu-north-1 update-kubeconfig --name hr-dev-eks-cloud
+
+      - name: Verify access
+        run: kubectl get nodes
+
+      - name: Install ArgoCD
         run: |
           environments/Setup-Argocd/argocd.sh
           echo "Running the second script!"
-
-      
+         
