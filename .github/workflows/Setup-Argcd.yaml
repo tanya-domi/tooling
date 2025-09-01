@@ -24,6 +24,12 @@ jobs:
     needs: call-Argocd-workflow
     runs-on: ubuntu-latest
     steps:
+      - name: AWS Creds
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.CI_ROLE }}
+          aws-region: ${{ inputs.aws-region }}
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -31,11 +37,6 @@ jobs:
         run: |
           chmod +x environments/Setup-Argocd/runner.sh
           chmod +x environments/Setup-Argocd/argocd.sh
-
-    #   - name: Run scripts
-    #     run: |
-    #        environments/Setup-Argocd/runner.sh
-    #        environments/Setup-Argocd/argocd.sh
 
       - name: Run first script
         run: |
