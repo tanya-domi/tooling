@@ -3,8 +3,8 @@
 This repository contains infrastructure components including S3, VPC, EKS, Load Balancer Controller (LBC), Cluster-Autoscaler, IRSA configuration, ArgoCD setup, and a self-hosted GitHub Actions runner for application deployments.
 
 # Infrastructure Provisioning & Deployment with GitHub Actions
-This repository automates the end-to-end setup of our cloud infrastructure and deployment pipeline using GitHub Actions, AWS, and ArgoCD.
-The workflow provisions and configures all required components to enable seamless CI/CD for our applications infrastructure.
+This repository automates the end-to-end setup of our cloud infrastructure and deployment pipeline using GitHub Actions reusable workflows, 
+AWS, and ArgoCD.The workflow provisions and configures all required components to enable seamless CI/CD for our applications infrastructure.
 
 ![Image](https://github.com/user-attachments/assets/0184c957-d458-4771-a164-2c4f23de72a0)
 
