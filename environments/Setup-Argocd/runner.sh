@@ -8,5 +8,5 @@ tar xzf ./actions-runner-linux-x64-2.328.0.tar.gz
 
 Configure
 # Create the runner and start the configuration experience
-./config.sh --url https://github.com/tanya-domi/tooling --token BKLK7COIB7AXDGLVEQNW7KLIWREZW
+./config.sh --url https://github.com/tanya-domi/Tetris-Game-Deployment-Automation --token BKLK7COQKLA6OKXUQEBR6LTIXWEXM
 ./run.sh

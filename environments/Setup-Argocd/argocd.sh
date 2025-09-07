@@ -26,7 +26,7 @@ argocd login "$ARGOCD_SERVER" --username admin --password "$ARGO_PWD" --insecure
 echo "ArgoCD server is available at: $ARGOCD_SERVER"
 
 # login and change admin Password
-# kubectl -n argocd get secret argocd-initial-admin-secret \
-#  -o jsonpath="{.data.password}" | base64 -d
+kubectl -n argocd get secret argocd-initial-admin-secret \
+ -o jsonpath="{.data.password}" | base64 -d
 
 
