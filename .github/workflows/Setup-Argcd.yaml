@@ -25,35 +25,40 @@ jobs:
     needs: call-Argocd-workflow
     runs-on: ubuntu-latest
     steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-north-1
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: ${{ secrets.CI_ROLE }}
+        aws-region: eu-north-1
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Set up SSH
+      run: |
+         eval "$(ssh-agent -s)"
+         ssh-add - <<< "${{ secrets.SSH_KEY_GITHUB_ACTIONS }}"
+         ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-      - name: Grant execute permissions to scripts
-        run: |
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Grant execute permissions to scripts
+      run: |
           chmod +x environments/Setup-Argocd/runner.sh
           chmod +x environments/Setup-Argocd/argocd.sh
 
-      - name: Run first script
-        run: |
+    - name: Run first script
+      run: |
           environments/Setup-Argocd/runner.sh
           echo "Running the first script!"
 
-      - name: Update kubeconfig
-        run: |
+    - name: Update kubeconfig
+      run: |
           aws eks --region eu-north-1 update-kubeconfig --name hr-dev-eks-cloud
 
-      - name: Verify access
-        run: kubectl get nodes
+    - name: Verify access
+      run: kubectl get nodes
 
-      - name: Run Second Script and Install ArgoCD
-        run: |
+    - name: Run Second Script and Install ArgoCD
+      run: |
           environments/Setup-Argocd/argocd.sh
           echo "Running the second script!"
          
